@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <button id="btn">click me</button>
+        <script>
+            let btn = document.getElementById("btn");
+
+            btn.addEventListener("click", function () {
+                btn.style.transform = "translateX(-5px)";
+
+                setTimeout(function () {
+                    btn.style.transform = "translateX(5px)";
+                }, 100);
+
+                setTimeout(function () {
+                    btn.style.transform = "translateX(0)";
+                }, 200);
+            });
+        </script>
+    </body>
+</html>
