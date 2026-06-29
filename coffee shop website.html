@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #120d08;
+            --surface: #1d140e;
+            --surface-2: #2a1e14;
+            --text: #f7e8c7;
+            --muted: #c7a67a;
+            --gold: #d4a35d;
+            --gold-dark: #a67733;
+            --border: #3a2a1d;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(212, 163, 93, 0.08), transparent 18%),
+                linear-gradient(to bottom, #0f0a06, #1a120b 55%, #120d08);
+            color: var(--text);
+        }
+
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+
+        .navbar {
+            background: rgba(12, 9, 6, 0.88) !important;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: var(--text) !important;
+        }
+
+        .hero {
+            position: relative;
+            background:
+                linear-gradient(rgba(12, 9, 6, 0.62), rgba(12, 9, 6, 0.62)),
+                url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085') center/cover;
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(212, 163, 93, 0.08), transparent 30%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 0;
+            height: 140px;
+            background: linear-gradient(to top, #120d08, rgba(18, 13, 8, 0));
+        }
+
+        .hero-content {
+            max-width: 680px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            letter-spacing: 1px;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(90deg, var(--gold), #f0bf73);
+            color: #2a1c0d;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(212, 163, 93, 0.28);
+        }
+
+        .btn-gold:hover {
+            background: linear-gradient(90deg, #f0bf73, var(--gold));
+            color: #2a1c0d;
+        }
+
+        .section-title {
+            color: var(--gold);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            display: block;
+            margin: 8px auto 0;
+            border-radius: 5px;
+        }
+
+        .about-img,
+        .contact-panel-img {
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            object-fit: cover;
+        }
+
+        .about-text,
+        .text-muted {
+            color: var(--muted) !important;
+            line-height: 1.8;
+        }
+
+        .menu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        .menu-card img {
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .tag {
+            background: rgba(212, 163, 93, 0.14);
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 999px;
+        }
+
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            height: 300px;
+            border: 1px solid var(--border);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-card .overlay {
+            position: absolute;
+            inset: auto 0 0 0;
+            background: linear-gradient(to top, rgba(12, 9, 6, 0.9), transparent);
+            color: #fff;
+            padding: 18px;
+        }
+
+        .contact-section {
+            background: linear-gradient(90deg, #24180f, #3a2818);
+            border-radius: 22px;
+            border: 1px solid var(--border);
+        }
+
+        .contact-panel {
+            background: #170f08;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+        }
+
+        .form-control {
+            background: #1d140e;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .form-control::placeholder {
+            color: #a58a66;
+        }
+
+        footer {
+            background: #0a0704;
+            color: #c9a56f;
+            padding: 18px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 75vh;
+            }
+
+            .gallery-card {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">☕ Coffee Shop</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <p class="tag mb-3">Premium Roast • Cozy Vibes</p>
+            <h1 class="display-3 fw-bold">Sip the Morning Magic</h1>
+            <p class="lead mb-4">Fresh beans, handcrafted drinks, and a warm place to slow down.</p>
+            <a href="#menu" class="btn btn-gold btn-lg">Explore Menu</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80"
+                     class="img-fluid about-img" alt="Coffee shop interior">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section-title">About Us</h2>
+                <p class="about-text mb-3">
+                    At Brew & Bloom, every cup is brewed with care using ethically sourced beans and seasonal flavors.
+                </p>
+                <p class="about-text">
+                    From sunrise lattes to evening pastries, we create a space where comfort, conversation, and creativity come together.
+                </p>
+                <div class="d-flex gap-3 mt-4">
+                    <div>
+                        <h3 class="fw-bold">4.9★</h3>
+                        <small class="text-muted">Guest Rating</small>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold">12+</h3>
+                        <small class="text-muted">Signature Drinks</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section id="menu" class="container py-5">
+        <h2 class="section-title text-center">Our Signature Menu</h2>
+        <p class="text-center text-muted mb-5">A little indulgence in every cup</p>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card menu-card">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Espresso">
+                    <div class="card-body text-center">
+                        <span class="tag">Best Seller</span>
+                        <h5 class="mt-3 mb-1">Espresso</h5>
+                        <p class="text-muted mb-0">₹120</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card menu-card">
+                    <img src="https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=800&q=80" alt="Cappuccino">
+                    <div class="card-body text-center">
+                        <span class="tag">Creamy</span>
+                        <h5 class="mt-3 mb-1">Cappuccino</h5>
+                        <p class="text-muted mb-0">₹180</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card menu-card">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80" alt="Latte">
+                    <div class="card-body text-center">
+                        <span class="tag">Sweet Blend</span>
+                        <h5 class="mt-3 mb-1">Vanilla Latte</h5>
+                        <p class="text-muted mb-0">₹200</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card menu-card">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Mocha">
+                    <div class="card-body text-center">
+                        <span class="tag">Chocolate</span>
+                        <h5 class="mt-3 mb-1">Mocha</h5>
+                        <p class="text-muted mb-0">₹220</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card menu-card">
+                    <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80" alt="Cold Brew">
+                    <div class="card-body text-center">
+                        <span class="tag">Iced</span>
+                        <h5 class="mt-3 mb-1">Cold Brew</h5>
+                        <p class="text-muted mb-0">₹170</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card menu-card">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80" alt="Matcha Latte">
+                    <div class="card-body text-center">
+                        <span class="tag">Fresh</span>
+                        <h5 class="mt-3 mb-1">Matcha Latte</h5>
+                        <p class="text-muted mb-0">₹210</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="container py-5">
+        <h2 class="section-title text-center">A Taste of Our Space</h2>
+        <div class="row g-4 mt-2">
+            <div class="col-md-4">
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Coffee cup">
+                    <div class="overlay">
+                        <h5>Morning Brew</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Coffee beans">
+                    <div class="overlay">
+                        <h5>Fresh Beans</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80" alt="Coffee art">
+                    <div class="overlay">
+                        <h5>Perfect Pour</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container py-5">
+        <div class="contact-section p-4 p-md-5">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-5">
+                    <img src="https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=900&q=80"
+                         class="img-fluid contact-panel-img" alt="Barista preparing coffee">
+                </div>
+                <div class="col-lg-7">
+                    <div class="contact-panel p-4">
+                        <h2 class="section-title">Contact Us</h2>
+                        <p class="text-muted">We’d love to hear from you</p>
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Your Name">
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Your Email">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="4" placeholder="Message"></textarea>
+                            </div>
+                            <button class="btn btn-gold">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Coffee Shop. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
+                    bsCollapse.hide();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
